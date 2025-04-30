@@ -1,0 +1,4 @@
+Recall,Dataset
+0.0736,../datasets/real_outlier/PageBlocks.csv
+0.06,../datasets/real_outlier/pendigits.csv
+0.0494,../datasets/real_outlier/shuttle.csv

@@ -1,0 +1,4 @@
+Recall,Dataset
+0.0326,../datasets/real_outlier/annthyroid.csv
+0.0256,../datasets/real_outlier/Cardiotocography.csv
+0,../datasets/real_outlier/optdigits.csv

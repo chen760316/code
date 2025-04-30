@@ -1,0 +1,27 @@
+{
+  "info": {
+    "_postman_id": "some-id",
+    "name": "RDS Request Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "RDS Request",
+      "request": {
+        "url": "{{url}}",
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{{rds_request}}"
+        }
+      },
+      "response": []
+    }
+  ]
+}

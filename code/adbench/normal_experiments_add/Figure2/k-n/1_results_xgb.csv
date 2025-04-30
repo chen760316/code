@@ -1,0 +1,5 @@
+F1,Precision,Recall,Dataset
+0.798,0.806,0.815,../../datasets/multi_class/adult.csv
+0.926,0.947,0.916,../../datasets/real_outlier/annthyroid.csv
+0.87,0.875,0.867,../../datasets/real_outlier/Cardiotocography.csv
+0.889,0.892,0.888,../../datasets/multi_class/star.csv

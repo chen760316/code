@@ -1,0 +1,15 @@
+{
+  "table": {
+    "path": "test_data/exhibition.csv",
+    "columnsType": {
+      "institution_name": "string",
+      "province": "string",
+      "city": "string",
+      "address": "string",
+      "postcode": "string",
+      "uuid": "string"
+    }
+  },
+  "support": 0.001,
+  "confidence": 0.95
+}

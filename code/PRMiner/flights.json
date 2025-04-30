@@ -1,0 +1,25 @@
+{
+  "table": {
+    "path": "test_data/flights_10000.csv",
+    "columnsType": {
+      "PID": "int",
+      "YEAR": "int",
+      "MONTH": "int",
+      "DAY": "int",
+      "DAY_OF_WEEK": "int",
+      "AIRLINE": "string",
+      "FLIGHT_NUMBER": "int",
+      "ORIGIN_AIRPORT": "string",
+      "DESTINATION_AIRPORT": "string",
+      "SCHEDULED_DEPARTURE": "int",
+      "SCHEDULED_TIME": "float",
+      "DISTANCE": "int",
+      "SCHEDULED_ARRIVAL": "int",
+      "DIVERTED": "int",
+      "CANCELLED": "int",
+      "WEATHER_DELAY": "int"
+    }
+  },
+  "support": 0.001,
+  "confidence": 0.95
+}

@@ -1,0 +1,301 @@
+# 标准化相关配置. 修改后需重启应用
+standardSimilarityConfig:
+  threshold: 0.5 #全局相似度匹配阈值
+  distance: 1e-9 #全局相似度匹配top1与top2误差:默认为 10的-9次方
+
+#标准化规则配置：  ###检测与规整的规则独立。须分开配置！！！！！！！！！！！！！
+#  角色名称:
+#    规整规则: 
+#      - type: 类型 可选值为:function,regex,similarity
+#        arg: 参数
+#        err:
+#    检测规则: 
+#      - type: 类型 可选值为:function,regex,similarity
+#        arg: 参数
+#        err: 错误提示语
+#
+#
+#
+# 各角色下的 type为function时，
+# 可在对应的arg 配置成以下某一个函数名：
+# "uppercase" 转大写
+# "upperFirstLetter" 首字母大写
+# "trim" 去首尾空格
+# "trimAllSpace" 去掉所有空格：去除开头、结尾及中间的空格
+# "toTrue" 将T、t、1统一转成True
+# "toFalse" 将F、f、0统一转成False
+# "halfWidth" 半角转全角
+# "simplified" 繁体转简体
+# "date" 日期
+# "checkAddress" 检测身份证地区码
+# "checkIdentifyNumber" 身份证校验
+# "fix86" 手机号码删掉+86
+# "checkEmailUsername": 检测email用户名
+# "checkEmailDomain": 检测email域名
+# "checkEmailSuffix": 检测email后缀
+# "checkIpv4Num": 检测ipv4地址中的每组数字必须在0~255之内
+# "checkIpv4Prefix": 检测ipv4地址不得以0、224-255数字开头
+# "checkIpv6String": 检测ipv6地址中的每组十六进制数必须在0至FFFF之内
+# "expandIpv6": ipv6零压缩法表示的地址转成8组十六进制数表示
+# "fixPersonChineseName": 规整中文姓名
+
+standardArgConfig: #标准化规则配置
+  Blood: #角色名称：血型
+    Neatness: #规整
+      - type: function
+        arg: uppercase #转大写
+        err:
+      - type: function
+        arg: trim #首尾去空格
+        err:
+      - type: function
+        arg: halfWidth #全角转半角
+        err:
+      - type: similarity #相似度规整提取
+        arg: [A,B,O,AB]
+        err:
+    Detection: #检测
+      - type: similarity
+        arg: [A,B,O,AB]
+        err: "仅支持A、B、AB、O这4种取值"
+
+  IdentifyNumber: #身份证号码
+    Neatness: #规整
+      - type: function
+        arg: trim #首尾去空格
+        err:
+      - type: function
+        arg: uppercase #转大写
+        err:
+
+    Detection: #检测
+      - type: regex
+        arg: '^\w{18}$'
+        err: "身份证位数应为18位"
+      - type: regex
+        arg: '^\d{17}.$'
+        err: "第1-17位的取值范围为0-9"
+      - type: regex
+        arg: '^\d{17}[\dXx]$'
+        err: "第18位取值范围为0-9、X"
+      - type: function
+        arg: checkAddress
+        err: "前6位应符合地区代码"
+      - type: function
+        arg: date
+        err: "出生日期应符合真实日期"
+      - type: function
+        arg: checkIdentifyNumber
+        err: "应符合身份证校验算法"
+
+  Constellation: #星座
+    Neatness: #规整
+      - type: function
+        arg: simplified #繁体转简体
+        err:
+      - type: similarity #相似度规整提取
+        arg: [白羊,金牛,双子,巨蟹,狮子,处女,天秤,天蝎,射手,摩羯,水瓶,双鱼]
+        err:
+
+    Detection: #检测
+      - type: similarity
+        arg: [白羊,金牛,双子,巨蟹,狮子,处女,天秤,天蝎,射手,摩羯,水瓶,双鱼]
+        err: "仅支持十二星座：白羊,金牛,双子,巨蟹,狮子,处女,天秤,天蝎,射手,摩羯,水瓶,双鱼"
+
+  Gender: #性别
+    Neatness: #规整
+      - type: similarity #相似度规整提取
+        arg: [男,女]
+        err:
+    Detection: #检测
+      - type: similarity
+        arg: [男,女]
+        err: "仅支持男、女两种"
+
+  PersonChineseName: #中文姓名
+    Neatness: #规整
+      - type: function
+        arg: trim #首尾去空格
+        err:
+      - type: function
+        arg: simplified #繁体转简体
+        err:
+      - type: function
+        arg: fixPersonChineseName #规整中文姓名：姓名起始及末尾存在特殊字符时，将特殊字符去除；姓名中间存在特殊字符时，将特殊字符规整为拉丁文的中间点。（连续的特殊字符规整为1个点）
+        err:
+
+    Detection: #检测
+      - type: regex
+        arg: '[^\d]+'
+        err: "名字不得全由数字组成"
+      - type: regex
+        arg: '^[\p{Han}·a-zA-Z0-9]{1,25}$'
+        err: "名字不能超出25个字符"
+
+    Enhancement: #增强
+      - type:
+        arg:
+        err:
+
+  Nation: #民族
+    Neatness: #规整
+      - type: function
+        arg: simplified #繁体转简体
+        err:
+      - type: similarity #相似度规整提取
+        arg: [汉,蒙古,回,藏,苗,维吾尔,彝,壮,布依,白,朝鲜,侗,哈尼,哈萨克,满,土家,瑶,达斡尔,东乡,高山,景颇,柯尔克孜,拉祜,纳西,畲,傣,黎,傈僳,仫佬,羌,水,土,佤,阿昌,布朗,毛南,普米,撒拉,塔吉克,锡伯,仡佬,保安,德昂,俄罗斯,鄂温克,京,怒,乌孜别克,裕固,独龙,鄂伦春,赫哲,基诺,珞巴,门巴,塔塔尔]
+        err:
+    Detection: #检测
+      - type: similarity
+        arg: [汉,蒙古,回,藏,苗,维吾尔,彝,壮,布依,白,朝鲜,侗,哈尼,哈萨克,满,土家,瑶,达斡尔,东乡,高山,景颇,柯尔克孜,拉祜,纳西,畲,傣,黎,傈僳,仫佬,羌,水,土,佤,阿昌,布朗,毛南,普米,撒拉,塔吉克,锡伯,仡佬,保安,德昂,俄罗斯,鄂温克,京,怒,乌孜别克,裕固,独龙,鄂伦春,赫哲,基诺,珞巴,门巴,塔塔尔]
+        err: "仅支持五十六个民族"
+
+  Zodiac: #生肖
+    Neatness: #规整
+      - type: function
+        arg: trim #首尾去空格 
+        err:
+
+      - type: function
+        arg: simplified #繁体转简体
+        err:
+      - type: similarity #相似度规整提取
+        arg: [鼠,牛,虎,兔,龙,蛇,马,羊,猴,鸡,狗,猪]
+        err:
+
+    Detection: #检测
+      - type: similarity
+        arg: [鼠,牛,虎,兔,龙,蛇,马,羊,猴,鸡,狗,猪]
+        err: "仅支持十二生肖：鼠,牛,虎,兔,龙,蛇,马,羊,猴,鸡,狗,猪"
+
+  MobileNumber: #手机号码
+    Neatness: #规整
+      - type: function
+        arg: fix86 #去掉号码前面的 +86
+        err:
+      - type: function
+        arg: trimAllSpace #去掉所有空格：去除开头、结尾及中间的空格
+        err:
+      - type: function
+        arg: halfWidth #全角转半角
+        err:
+
+    Detection: #检测
+      - type: regex
+        arg: '^\d{11}$'
+        err: "手机号码应为11位"
+      - type: regex
+        arg: '^1\d{10}$'
+        err: "不得以除1以外的其他数字开头"
+      - type: regex
+        arg: '^1[3-9]\d{9}$'
+        err: "不得以10、11、12数字开头"
+      - type: regex
+        arg: '^1(3[0-9]|4[5-9]|5[0-9]|6[1-24-7]|7[0-8]|[8-9][0-9])\d{8}$'
+        err: "不得以140~144、160、163、168、169、179数字开头"
+
+  Boolean: #布尔
+    Neatness: #规整
+      - type: function
+        arg: trim #首尾去空格 #去掉前后空格
+        err:
+      - type: function
+        arg: halfWidth #全角转半角
+        err:
+      - type: function
+        arg: upperFirstLetter #首字符大写
+        err:
+      - type: function
+        arg: toTrue #将T、t、1统一转成True
+        err:
+      - type: function
+        arg: toFalse #将F、f、0统一转成False
+        err:
+      - type: similarity #相似度规整提取
+        arg: ["True","False"]
+        err:
+
+    Detection: #检测
+      - type: similarity
+        arg: ["True","False"]
+        err: "仅支持True、False这两种取值"
+
+  Email:
+    Neatness: #规整
+
+    Detection: #检测
+      - type: regex
+        arg: '^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        err: "不符合邮箱格式"
+      - type: function
+        arg: checkEmailUsername  #检测邮箱用户名：可以使用大小写字母、数字、点号、下划线、破折号；首尾必须是字母或数字，并且不能连续出现两个点号或破折号或者下划线。
+        err: "用户名含非法字符"
+      - type: function
+        arg: checkEmailDomain  #检测邮箱域名：可以使用大小写字母、数字、破折号；首尾不能为破折号，最后一个字段必须为2个或以上的字母
+        err: "域名非法字符"
+      - type: function
+        arg: checkEmailSuffix  #检测邮箱后缀：以.开头后面带2-6位大小写字母（.edu），或者以.开头带2-3位大小写字母后接.，再带2-3位字母(.com.cn)
+        err: "后缀非法字符"
+
+  Ipv4:
+    Neatness: #规整
+      - type: function
+        arg: trim #首尾去空格
+        err:
+      - type: function
+        arg: halfWidth #全角转半角
+        err:
+    Detection: #检测
+      - type: function
+        arg: checkIpv4Num
+        err: "ipv4地址中的每组数字必须在0~255之内"
+      - type: regex
+        arg: '^(25[0-5]|2[0-4][0-9]|[0-1]?[0-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|[0-1]?[0-9]?[0-9])){3}$'
+        err: "必须由4组十进制数表示，中间用英文半角圆点字符分隔"
+      - type: function
+        arg: checkIpv4Prefix
+        err: "不得以0、224-255数字开头"
+
+  Ipv6:
+    Neatness: #规整
+      - type: function
+        arg: trim #首尾去空格
+        err:
+      - type: function
+        arg: halfWidth #全角转半角
+        err:
+      - type: function
+        arg: uppercase #转大写
+        err:
+      - type: function
+        arg: expandIpv6 # 零压缩法表示的地址转成8组十六进制数表示
+        err:
+
+    Detection: #检测
+      - type: function
+        arg: checkIpv6String
+        err: "ipv6地址中的每组十六进制数必须在0至FFFF之内"
+      - type: regex
+        arg: '^(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$'
+        err: "必须由8组十六进制数表示，中间用英文半角冒号字符分隔"
+
+  CompanyName: #企业名称
+    InformationExtraction: #抽取
+      - type:
+        arg:
+        err:
+
+  Address: #地址
+    InformationExtraction: #抽取
+      - type:
+        arg:
+        err:
+  SkuGoodsTitle: #SKU商品标题
+    Enhancement: #增强
+      - type:
+        arg:
+        err:
+    InformationExtraction: #抽取
+      - type:
+        arg:
+        err:

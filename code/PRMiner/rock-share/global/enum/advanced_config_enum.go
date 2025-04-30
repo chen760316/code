@@ -1,0 +1,25 @@
+package enum
+
+const (
+	SchemaMappingThreshold = "schema-mapping-threshold"
+	DecisionTreeMaxRowSize = "decision-tree-max-row-size"
+	PredicateSupportLimit  = "predicate-support-limit"
+	TopKLayer              = "topK-layer"
+	TopKSize               = "topK-size"
+	TreeLevel              = "tree-level"
+	Confidence             = "confidence"
+	Support                = "support"
+	DecisionTreeMaxDepth   = "decision-tree-max-depth"
+	EnumSize               = "enum-size"
+	SimilarThreshold       = "similar-threshold"
+	TableRuleLimit         = "table-rule-limit"
+	RdsSize                = "rds-size"
+	EnableCrossTable       = "enable-cross-table"
+	EnableErRule           = "enable-er-rule"
+	EnableTimeRule         = "enable-time-rule"
+	EnableDecisionTree     = "enable-decision-tree"
+	EnableEmbedding        = "enable-embedding"
+	EnableSimilar          = "enable-similar"
+	EnableEnum             = "enable-enum"
+	EnableNum              = "enable-num"
+)

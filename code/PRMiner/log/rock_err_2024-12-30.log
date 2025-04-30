@@ -1,0 +1,2 @@
+{"level":"error","ts":"2025-01-02 16:20:40.577","caller":"F:/projects/rds-shenglin/global_variables.go:199","msg":"error:open test_data/exhibition: The system cannot find the file specified."}
+{"level":"error","ts":"2025-01-02 21:31:16.726","caller":"E:/rova_baselines/REE/rds-shenglin/global_variables.go:199","msg":"error:open : The system cannot find the file specified."}

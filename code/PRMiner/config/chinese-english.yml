@@ -1,0 +1,58 @@
+国家 : country
+省 : province
+市 : city
+区、县 : district, county
+街道、乡镇 : street, town
+社区、村 : community, village
+组 : group
+路 : road
+门牌号 : house number
+方位信息 : orientation information
+楼号 : building number
+单元、门 : unit, door
+层 : floor
+户号 : household number
+运营商 : operator
+商品一级类目 : primary category of goods
+商品二级类目 : secondary category of goods
+商品三级类目 : tertiary category of goods
+商品四级类目 : quaternary category of goods
+推测性别 : predicted gender
+类别 : category
+地区 : region
+名称 : name
+领域 : field
+组织形式 : organizational form
+品牌 : brand
+关键词 : keywords
+血型不符合规范 : Blood type does not meet the standard.
+身份证号码不正确 : Incorrect ID card number.
+星座信息不正确 : Incorrect constellation information.
+性别不符合规范 : Gender does not meet the standard.
+姓名不符合规范 : Name does not meet the standard.
+民族信息不正确 : Incorrect ethnicity information.
+生肖名称不正确 : Incorrect Chinese zodiac sign name.
+手机号不符合规范 : Phone number does not meet the standard.
+布尔值错误 : Boolean value error.
+邮箱不符合规范 : Email does not meet the standard.
+协议不符合规范 : Protocol does not meet the standard.
+国籍不存在 : Nationality does not exist.
+职业类型不存在 : Occupation type does not exist.
+学历类型不存在 : Education level does not exist.
+URL不合法 : URL is not valid.
+日期时间格式不正确 : Incorrect date-time format.
+经度值不正确 : Incorrect longitude value.
+纬度值不正确 : Incorrect latitude value.
+MAC地址不合法 : MAC address is not valid.
+证件类型不正确 : Incorrect credential type
+发证机关只能为中文 : Issuing authority must be in Chinese.
+邮编格式不正确 : Incorrect postal code format.
+政治面貌不存在 : Political affiliation does not exist.
+婚姻状况不存在 : Marital status does not exist.
+学术文章标题不符合规范 : Academic article title does not meet the standard.
+语种不存在 : Language does not exist.
+宗教信仰不存在 : Religious belief does not exist.
+院校名不存在 : School name does not exist.
+数值数据内容不符合规范 : Numeric data content does not meet the standard.
+季节不存在 : Season does not exist.
+计数数据内容不符合规范 : Counting data content does not meet the standard.
